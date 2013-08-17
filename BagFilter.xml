@@ -1,0 +1,229 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+   
+   <Button name="BagFilterItemTemplate"  inherits="SecureActionButtonTemplate" virtual="true">
+	<Size>
+		<AbsDimension x="37" y="37"/>
+	</Size>
+	<Layers>
+		<Layer level="BORDER">
+			<Texture name="$parentIconTexture" parentKey="icon"/>
+			<FontString name="$parentCount" parentKey="count" 
+				inherits="NumberFontNormal" justifyH="RIGHT" hidden="true">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT">
+						<Offset x="-5" y="2"/>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+		<Layer level="OVERLAY">
+			<Texture name="$parentGlow" parentKey="glow" alphaMode="ADD"
+				file="Interface\Buttons\UI-ActionButton-Border">
+				<Size>
+					<AbsDimension x="70" y="70"/>
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER">
+					</Anchor>
+				</Anchors>
+				<Color r="1.0" g="1.0" b="1.0" a="0.6"/>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Attributes>
+		<Attribute name="type2" type="string" value="item"/>
+	</Attributes>
+	<Scripts>
+		<OnEnter function="BagFilter_Button_OnEnter"/>
+		<OnLeave function="BagFilter_Button_OnLeave"/>
+	</Scripts>
+	<NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+		<Size>
+			<AbsDimension x="64" y="64"/>
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER">
+				<Offset x="0" y="-1"/>
+			</Anchor>
+		</Anchors>
+	</NormalTexture>
+	<PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+	<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+   </Button>
+   
+   <CheckButton name="BagFilter_FilterTemplate" inherits="BagFilterItemTemplate" virtual="true">
+	<Scripts>
+		<OnEnter function="BagFilter_Filter_OnEnter"/>
+		<OnClick function="BagFilter_Filter_OnClick"/>
+		<OnLeave function="BagFilter_Filter_OnLeave"/>
+	</Scripts>
+	<CheckedTexture file="Interface\Buttons\CheckButtonHilight" alphaMode="ADD"/>
+   </CheckButton>
+   
+   <Frame name="BagFilter" parent="UIParent" hidden="true">
+	<Size>
+		<AbsDimension x="384" y="512"/>
+	</Size>
+	<Anchors>
+		<Anchor point="CENTER" relativePoint="CENTER" relativeTo="UIParent"/>
+	</Anchors>	
+	<Layers>
+		<Layer level="BACKGROUND">
+			<Texture name="$parent_Portrait" parentKey="portrait" file="Interface\Icons\INV_Misc_Bag_27">
+				<Size>
+					<AbsDimension x="60" y="60"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="7" y="-6"/>
+					</Anchor>
+				</Anchors>
+			</Texture>
+		</Layer>
+		<Layer level="OVERLAY">
+			<FontString name="$parent_Title" parentKey="title" inherits="GameFontNormal" text="BagFilter">
+				<Anchors>
+					<Anchor point="TOP">
+						<Offset x="0" y="-18"/>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="$parent_Status" parentKey="status" inherits="GameFontHighlight">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="BOTTOM">
+						<Offset x="-10" y="150"/>
+					</Anchor>
+				</Anchors>
+			</FontString>
+			<FontString name="$parent_Info" parentKey="info" inherits="GameFontHighlight">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="BOTTOM">
+						<Offset x="-80" y="250"/>
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+		<Layer level="BORDER">
+			<Texture file="Interface\BankFrame\UI-BankFrame-TopLeft">
+				<Anchors>
+					<Anchor point="TOPLEFT"/>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\BankFrame\UI-BankFrame-TopRight">
+				<Anchors>
+					<Anchor point="TOPRIGHT"/>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\BankFrame\UI-BankFrame-BotLeft">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT"/>
+				</Anchors>
+			</Texture>
+			<Texture file="Interface\BankFrame\UI-BankFrame-BotRight">
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT"/>
+				</Anchors>
+			</Texture>
+		</Layer>
+	</Layers>
+	<Frames>
+		<Button name="$parent_Close" parentKey="close" inherits="UIPanelCloseButton">
+			<Anchors>
+				<Anchor point="TOPRIGHT">
+					<Offset x="-30" y="-8"/>
+				</Anchor>
+			</Anchors>
+		</Button>
+		<Button name="BagFilter_PrevButton" parentKey="prev">
+			<Size>
+				<AbsDimension x="32" y="32"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER" relativeTo="BagFilter" relativePoint="BOTTOMLEFT">
+					<Offset x="50" y="150"/>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick function="BagFilter_PrevPage"/>			
+			</Scripts>
+			<NormalTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Up"/>
+			<PushedTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Down"/>
+			<DisabledTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Disabled"/>
+			<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+		</Button>
+		<Button name="BagFilter_NextButton" parentKey="next">
+			<Size>
+				<AbsDimension x="32" y="32"/>
+			</Size>
+			<Anchors>
+				<Anchor point="CENTER" relativeTo="BagFilter" relativePoint="BOTTOMRIGHT">
+					<Offset x="-70" y="150"/>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnClick function="BagFilter_NextPage"/>			
+			</Scripts>
+			<NormalTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Up"/>
+			<PushedTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Down"/>
+			<DisabledTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Disabled"/>
+			<HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+		</Button>
+		<EditBox name="$parent_Input" parentKey="input" autoFocus="false">
+			<Size>
+				<AbsDimension x="400" y="20"/>				
+			</Size>
+			<Anchors>
+				<Anchor point="BOTTOMLEFT" >
+					<Offset x="32" y="100"/>
+				</Anchor>
+			</Anchors>
+			<Scripts>
+				<OnEscapePressed>
+					self:ClearFocus()
+				</OnEscapePressed>
+				<OnTextChanged>
+					BagFilter.page = 1
+					BagFilter_Update()
+				</OnTextChanged>				
+			</Scripts>
+			<FontString inherits="GameFontHighlight"/>
+		</EditBox>
+		<Frame name="BagFilterInvSlotDropDown" inherits="UIDropDownMenuTemplate" id="2">
+				<Size>
+					<AbsDimension x="45" y="20"/>				
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="BagFilter" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="53" y="-55"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad function="BagFilterInvSlotDropDown_OnLoad"/>
+				</Scripts>
+			</Frame>
+			<Frame name="BagFilterSubClassDropDown" inherits="UIDropDownMenuTemplate" id="1">
+				<Size>
+					<AbsDimension x="45" y="20"/>				
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="BagFilterInvSlotDropDown" relativePoint="TOPRIGHT">
+						<Offset>
+							<AbsDimension x="92" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad function="BagFilterSubClassDropDown_OnLoad"/>
+				</Scripts>
+			</Frame> 
+	</Frames>
+	<Scripts>
+		<OnLoad function="BagFilter_OnLoad"/>
+		<OnEvent function="BagFilter_OnEvent"/>
+	</Scripts>
+   </Frame>
+</Ui>

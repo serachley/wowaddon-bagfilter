@@ -1,0 +1,8 @@
+## Interface: 50300
+## Title: BagFilter
+## Notes: BagFilter bag filter/item finder
+
+BagFilter.lua
+BagFilter.xml
+
+## SavedVariablesPerCharacter: BagFilter_ItemTimes, BagFilter_RecentlyLootedItems
